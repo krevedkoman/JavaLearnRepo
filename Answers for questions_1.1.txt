@@ -1,4 +1,10 @@
-  
+9. Static
+For use class member(variable, method, etc...) without class object.
+ 
+
+10. Final
+Non changable local variable\ fileds\ method params
+same constant  
   
 11. Variable types:  
 8 pcs.  
