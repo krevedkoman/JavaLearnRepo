@@ -5,6 +5,8 @@ For use class member(variable, method, etc...) without class object.
 10. Final
 Non changable local variable\ fileds\ method params
 same constant  
+Запрет переопределений методов
+Запрет наследования класса и соответственно всех его членов(методы поля переменный и т.д.).
   
 11. Variable types:  
 8 pcs.  
