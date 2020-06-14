@@ -4,16 +4,21 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class GameLogic {
-    private String [] myarray = {"1","2","3","4","5","6","7","8","9" };
+    final String alreadyUsedErr = "This field is already used, please select another field";
+    final String enterOnlyOneDigit = "You must enter only one digit";
+    final String doNotEnterLetter = "Do not enter letter, enter only one digit";
+
+
+
     Field field = new Field();
     void start(){
         do {
-            field.screen(myarray);
+            screen(field.getMyarray());
             input();
             npcRandomStep();
-            if(chkWinner(myarray) != "") {
-                field.screen(myarray);
-                System.out.println("Winner: " + chkWinner(myarray));
+            if(chkWinner(field.getMyarray()) != "") {
+
+                System.out.println("Winner: " + chkWinner(field.getMyarray()));
 
                 break;
             }
@@ -22,25 +27,36 @@ public class GameLogic {
         while (true);
     }
 
+    public void screen(String [] myarray) {
+        int i = 0;
+        for (int b = 0; b < 3; b++) {
+            for (int c = 0; c < 3; c++) {
+                System.out.print(myarray[i] + "  ");
+                i++;
+            }
+            System.out.println();
+        }
+    }
 
-    void npcRandomStep(){
-        int val = 0;
+
+
+        void npcRandomStep(){
+        int counterVal = 0;
         Random random = new Random();
         int min = 1, max = 9;
-        int i;
+        int fieldValue;
         do {
-            i = random.nextInt(max - min + 1) + min;
-            i = i - 1;
-            if (myarray[i].equals("X") || myarray[i].equals("O") )
+            fieldValue = random.nextInt(max - min + 1) + min;
+            fieldValue = fieldValue - 1;
+            if (field.getMyarray()[fieldValue].equals("X") || field.getMyarray()[fieldValue].equals("O") )
             {
 
             }
             else {
-                myarray[i] = "O";
-                val = 1;
+                field.getMyarray()[fieldValue] = "O";
+                counterVal = 1;
             }
-        //    return "";
-        } while (val < 1);
+        } while (counterVal < 1);
 
 
     }
@@ -100,12 +116,12 @@ public class GameLogic {
                 if (num >= 1 && num < 10)
                 {
                     num = num -1;
-                    if (myarray[num].equals("X") || myarray[num].equals("O") )
+                    if (field.getMyarray()[num].equals("X") || field.getMyarray()[num].equals("O") )
                     {
-                        System.out.println("This field is already used, please select another field");
+                        System.out.println(alreadyUsedErr);
                     }
                     else {
-                        myarray[num] = "X";
+                        field.getMyarray()[num] = "X";
                         val = 1;
                     }
 

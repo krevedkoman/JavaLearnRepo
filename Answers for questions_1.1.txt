@@ -1,3 +1,5 @@
+5. == compare links , equal compare contents
+
 9. Static
 For use class member(variable, method, etc...) without class object.
  
