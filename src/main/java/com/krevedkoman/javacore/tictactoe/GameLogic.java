@@ -5,40 +5,41 @@ import java.util.Scanner;
 
 public class GameLogic {
     final String alreadyUsedErr = "This field is already used, please select another field";
-    final String enterOnlyOneDigit = "You must enter only one digit";
+    final String enterOnlyOneDigit = "You must enter a number from 1 to 9, cannot enter zero";
     final String doNotEnterLetter = "Do not enter letter, enter only one digit";
-
-
 
     Field field = new Field();
     void start(){
         do {
             screen(field.getMyarray());
             input();
-            npcRandomStep();
             if(chkWinner(field.getMyarray()) != "") {
-
+                screen(field.getMyarray());
                 System.out.println("Winner: " + chkWinner(field.getMyarray()));
-
                 break;
             }
-
+            npcRandomStep();
+            if(chkWinner(field.getMyarray()) != "") {
+                screen(field.getMyarray());
+                System.out.println("Winner: " + chkWinner(field.getMyarray()));
+                break;
+            }
         }
         while (true);
     }
 
-    public void screen(String [] myarray) {
+
+
+    void screen(String [] fieldArray) {
         int i = 0;
         for (int b = 0; b < 3; b++) {
             for (int c = 0; c < 3; c++) {
-                System.out.print(myarray[i] + "  ");
+                System.out.print(fieldArray[i] + "  ");
                 i++;
             }
             System.out.println();
         }
     }
-
-
 
         void npcRandomStep(){
         int counterVal = 0;
@@ -57,87 +58,91 @@ public class GameLogic {
                 counterVal = 1;
             }
         } while (counterVal < 1);
-
-
     }
 
 
-    String chkWinner(String [] myarray){
+    String chkWinner(String [] filedArray){
 
-        if (myarray[0] == "X" && myarray[1] == "X" && myarray[2] == "X")
+        if (filedArray[0] == "X" && filedArray[1] == "X" && filedArray[2] == "X")
             return "X";
-        if (myarray[3] == "X" && myarray[4] == "X" && myarray[5] == "X")
+        if (filedArray[3] == "X" && filedArray[4] == "X" && filedArray[5] == "X")
             return "X";
-        if (myarray[6] == "X" && myarray[7] == "X" && myarray[8] == "X")
+        if (filedArray[6] == "X" && filedArray[7] == "X" && filedArray[8] == "X")
             return "X";
-        if (myarray[0] == "X" && myarray[3] == "X" && myarray[6] == "X")
+        if (filedArray[0] == "X" && filedArray[3] == "X" && filedArray[6] == "X")
             return "X";
-        if (myarray[1] == "X" && myarray[4] == "X" && myarray[7] == "X")
+        if (filedArray[1] == "X" && filedArray[4] == "X" && filedArray[7] == "X")
             return "X";
-        if (myarray[2] == "X" && myarray[5] == "X" && myarray[8] == "X")
+        if (filedArray[2] == "X" && filedArray[5] == "X" && filedArray[8] == "X")
             return "X";
-        if (myarray[0] == "X" && myarray[4] == "X" && myarray[8] == "X")
+        if (filedArray[0] == "X" && filedArray[4] == "X" && filedArray[8] == "X")
             return "X";
-        if (myarray[2] == "X" && myarray[4] == "X" && myarray[6] == "X")
+        if (filedArray[2] == "X" && filedArray[4] == "X" && filedArray[6] == "X")
             return "X";
 
-        if (myarray[0] == "O" && myarray[1] == "O" && myarray[2] == "O")
+        if (filedArray[0] == "O" && filedArray[1] == "O" && filedArray[2] == "O")
             return "O";
-        if (myarray[3] == "O" && myarray[4] == "O" && myarray[5] == "O")
+        if (filedArray[3] == "O" && filedArray[4] == "O" && filedArray[5] == "O")
             return "O";
-        if (myarray[6] == "O" && myarray[7] == "O" && myarray[8] == "O")
+        if (filedArray[6] == "O" && filedArray[7] == "O" && filedArray[8] == "O")
             return "O";
-        if (myarray[0] == "O" && myarray[3] == "O" && myarray[6] == "O")
+        if (filedArray[0] == "O" && filedArray[3] == "O" && filedArray[6] == "O")
             return "O";
-        if (myarray[1] == "O" && myarray[4] == "O" && myarray[7] == "O")
+        if (filedArray[1] == "O" && filedArray[4] == "O" && filedArray[7] == "O")
             return "O";
-        if (myarray[2] == "O" && myarray[5] == "O" && myarray[8] == "O")
+        if (filedArray[2] == "O" && filedArray[5] == "O" && filedArray[8] == "O")
             return "O";
-        if (myarray[0] == "O" && myarray[4] == "O" && myarray[8] == "O")
+        if (filedArray[0] == "O" && filedArray[4] == "O" && filedArray[8] == "O")
             return "O";
-        if (myarray[2] == "O" && myarray[4] == "O" && myarray[6] == "O")
+        if (filedArray[2] == "O" && filedArray[4] == "O" && filedArray[6] == "O")
             return "O";
         return "";
 
     }
 
-    void input(){
+    void input() {
         int val = 0;
         System.out.println("Enter you value");
         do {
             Scanner scanner = new Scanner(System.in);
-            String character = scanner.next();
-            char myChar = character.charAt(0);
+            String enteredValue = scanner.nextLine();
+            char enterDigit = enteredValue.charAt(0);
 
-            if (Character.isDigit(myChar))
-            {
-                int num = Character.getNumericValue(myChar);
-
-                if (num >= 1 && num < 10)
-                {
-                    num = num -1;
-                    if (field.getMyarray()[num].equals("X") || field.getMyarray()[num].equals("O") )
-                    {
-                        System.out.println(alreadyUsedErr);
-                    }
-                    else {
-                        field.getMyarray()[num] = "X";
-                        val = 1;
-                    }
-
+            if (validateInput(enterDigit)) {
+                int num = Character.getNumericValue(enterDigit);
+                num = num - 1;
+                if (field.getMyarray()[num].equals("X") || field.getMyarray()[num].equals("O")) {
+                    System.out.println(alreadyUsedErr);
+                } else {
+                    field.getMyarray()[num] = "X";
+                    val = 1;
                 }
-                else System.out.println("Enter correct value");
 
             }
-            else System.out.println("Enter correct value");
+        }
 
-        } while (val < 1);
-    }
+            while (val < 1) ;
+        }
 
 
-    boolean validateInput(){
+    boolean validateInput(char checkInputCharValue) {
 
-        return false;
+        if (Character.isDigit(checkInputCharValue)) {
+            int num = Character.getNumericValue(checkInputCharValue);
+            if (num >= 1 && num < 10) {
+                return true;
+            } else {
+                System.out.println(enterOnlyOneDigit);
+                return false;
+
+            }
+
+        } else {
+            System.out.println(doNotEnterLetter);
+            return false;
+        }
+
+
     }
 
 }

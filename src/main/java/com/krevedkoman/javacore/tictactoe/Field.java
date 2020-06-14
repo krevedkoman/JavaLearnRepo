@@ -7,8 +7,5 @@ public class Field {
         return myarray;
     }
 
-    public void setMyarray(String[] myarray) {
-        this.myarray = myarray;
-    }
 
 }
