@@ -11,34 +11,21 @@ public class GameLogic {
     Field field = new Field();
     void start(){
         do {
-            screen(field.getMyarray());
+            field.screen();
             input();
-            if(chkWinner(field.getMyarray()) != "") {
-                screen(field.getMyarray());
-                System.out.println("Winner: " + chkWinner(field.getMyarray()));
+            if(chkWinner(field.getFieldArray()) != "") {
+                field.screen();
+                System.out.println("Winner: " + chkWinner(field.getFieldArray()));
                 break;
             }
             npcRandomStep();
-            if(chkWinner(field.getMyarray()) != "") {
-                screen(field.getMyarray());
-                System.out.println("Winner: " + chkWinner(field.getMyarray()));
+            if(chkWinner(field.getFieldArray()) != "") {
+                field.screen();
+                System.out.println("Winner: " + chkWinner(field.getFieldArray()));
                 break;
             }
         }
         while (true);
-    }
-
-
-
-    void screen(String [] fieldArray) {
-        int i = 0;
-        for (int b = 0; b < 3; b++) {
-            for (int c = 0; c < 3; c++) {
-                System.out.print(fieldArray[i] + "  ");
-                i++;
-            }
-            System.out.println();
-        }
     }
 
         void npcRandomStep(){
@@ -49,12 +36,12 @@ public class GameLogic {
         do {
             fieldValue = random.nextInt(max - min + 1) + min;
             fieldValue = fieldValue - 1;
-            if (field.getMyarray()[fieldValue].equals("X") || field.getMyarray()[fieldValue].equals("O") )
+            if (field.getFieldArray()[fieldValue].equals("X") || field.getFieldArray()[fieldValue].equals("O") )
             {
 
             }
             else {
-                field.getMyarray()[fieldValue] = "O";
+                field.getFieldArray()[fieldValue] = "O";
                 counterVal = 1;
             }
         } while (counterVal < 1);
@@ -111,10 +98,10 @@ public class GameLogic {
             if (validateInput(enterDigit)) {
                 int num = Character.getNumericValue(enterDigit);
                 num = num - 1;
-                if (field.getMyarray()[num].equals("X") || field.getMyarray()[num].equals("O")) {
+                if (field.getFieldArray()[num].equals("X") || field.getFieldArray()[num].equals("O")) {
                     System.out.println(alreadyUsedErr);
                 } else {
-                    field.getMyarray()[num] = "X";
+                    field.getFieldArray()[num] = "X";
                     val = 1;
                 }
 
@@ -127,7 +114,11 @@ public class GameLogic {
 
     boolean validateInput(char checkInputCharValue) {
 
-        if (Character.isDigit(checkInputCharValue)) {
+        if (!Character.isDigit(checkInputCharValue)) {
+            System.out.println(doNotEnterLetter);
+            return false;
+        }
+
             int num = Character.getNumericValue(checkInputCharValue);
             if (num >= 1 && num < 10) {
                 return true;
@@ -137,12 +128,6 @@ public class GameLogic {
 
             }
 
-        } else {
-            System.out.println(doNotEnterLetter);
-            return false;
         }
-
-
-    }
 
 }
